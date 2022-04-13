@@ -65,8 +65,8 @@ private int[][] puzzle;
     EpuzzleSearch eSearcher = (EpuzzleSearch) searcher;
     int[][] current = eSearcher.getCurrent();
 
-    int x = 0;//x and y coordinates for the blank space in the puzzle.
-    int y = 0;
+    int col = 0;//col and row coordinates for the blank space in the puzzle.
+    int row = 0;
     boolean canMoveLeft = true;
     boolean canMoveRight = true;
     boolean canMoveUp = true;
@@ -82,28 +82,28 @@ private int[][] puzzle;
     for(int i=0; i<puzzle.length; i++){
       for(int j=0; j<puzzle[i].length; j++){
         if (puzzle[i][j] == 0){
-          x = j;
-          y = i;
+          col = j;
+          row = i;
         }
       }
     }
 
-    System.out.println("0 is in position: "+x+","+y+"\n");
+    System.out.println("0 is in position: "+col+","+row+"\n");
 
 
     //If statements:
 
-    if (y == 0){
+    if (row == 0){
       canMoveUp = false;
     }
-    else if (y == 2){
+    else if (row == 2){
       canMoveDown = false;
     }
 
-    if (x == 0){
+    if (col == 0){
       canMoveLeft = false;
     }
-    else if (x == 2){
+    else if (col == 2){
       canMoveRight = false;
     }
 
@@ -113,24 +113,24 @@ private int[][] puzzle;
     System.out.println("Can move right: "+canMoveRight);
 
     if (canMoveUp){
-      //newState = movePieceUp(puzzleCopy, x, y);
+      //newState = movePieceUp(puzzleCopy, col, row);
       //eslis.add(new EpuzzleState(newState));
-      eslis.add(movePieceUp(puzzle,x,y));
+      eslis.add(movePieceUp(puzzle,col,row));
     }
 
     if (canMoveDown){
-      //newState = movePieceDown(puzzleCopy, x, y);
-      eslis.add(movePieceDown(puzzle,x,y));
+      //newState = movePieceDown(puzzleCopy, col, row);
+      eslis.add(movePieceDown(puzzle,col,row));
     }
 
     if (canMoveLeft){
-      //newState = movePieceLeft(puzzleCopy, x, y);
-      eslis.add(movePieceLeft(puzzle,x,y));
+      //newState = movePieceLeft(puzzleCopy, col, row);
+      eslis.add(movePieceLeft(puzzle,col,row));
     }
 
     if (canMoveRight){
-      //newState = movePieceRight(puzzleCopy, x, y);
-      eslis.add(movePieceRight(puzzle,x,y));
+      //newState = movePieceRight(puzzleCopy, col, row);
+      eslis.add(movePieceRight(puzzle,col,row));
     }
 
 
@@ -174,14 +174,14 @@ private int[][] puzzle;
 
 
 
-  private EpuzzleState movePieceUp(int[][] puzzle_, int x, int y){
+  private EpuzzleState movePieceUp(int[][] puzzle_, int col, int row){
     int[][] puzzleCopy = copyPuzzle(puzzle_);
 
-    //x and y are the co-ordinates for the blank space.
+    //col and row are the co-ordinates for the blank space.
 
-    int temp = puzzleCopy[y-1][x];
-    puzzleCopy[y-1][x] = puzzleCopy[y][x];
-    puzzleCopy[y][x] = temp;
+    int temp = puzzleCopy[row-1][col];
+    puzzleCopy[row-1][col] = puzzleCopy[row][col];
+    puzzleCopy[row][col] = temp;
 
     System.out.println("Moving up:\n"+"|"+puzzleCopy[0][0]+" "+puzzleCopy[0][1]+" "+puzzleCopy[0][2]+"|\n|"+puzzleCopy[1][0]+" "+puzzleCopy[1][1]+" "+puzzleCopy[1][2]+"|\n|"+puzzleCopy[2][0]+" "+puzzleCopy[2][1]+" "+puzzleCopy[2][2]+"|\n");    
     return new EpuzzleState(puzzleCopy);
@@ -189,14 +189,14 @@ private int[][] puzzle;
 
 
 
-  private EpuzzleState movePieceDown(int[][] puzzle, int x, int y){
+  private EpuzzleState movePieceDown(int[][] puzzle, int col, int row){
     int[][] puzzleCopy = copyPuzzle(puzzle);
 
-    //x and y are the co-ordinates for the blank space.
+    //col and row are the co-ordinates for the blank space.
   
-    int temp = puzzleCopy[y+1][x];
-    puzzleCopy[y+1][x] = puzzleCopy[y][x];
-    puzzleCopy[y][x] = temp;
+    int temp = puzzleCopy[row+1][col];
+    puzzleCopy[row+1][col] = puzzleCopy[row][col];
+    puzzleCopy[row][col] = temp;
 
     System.out.println("Moving down:\n"+"|"+puzzleCopy[0][0]+" "+puzzleCopy[0][1]+" "+puzzleCopy[0][2]+"|\n|"+puzzleCopy[1][0]+" "+puzzleCopy[1][1]+" "+puzzleCopy[1][2]+"|\n|"+puzzleCopy[2][0]+" "+puzzleCopy[2][1]+" "+puzzleCopy[2][2]+"|\n");
 
@@ -204,27 +204,27 @@ private int[][] puzzle;
   }
 
 
-  private EpuzzleState movePieceLeft(int[][] puzzle, int x, int y){
+  private EpuzzleState movePieceLeft(int[][] puzzle, int col, int row){
     int[][] puzzleCopy = copyPuzzle(puzzle);
 
-    //x and y are the co-ordinates for the blank space.
+    //col and row are the co-ordinates for the blank space.
   
-    int temp = puzzleCopy[y][x-1];
-    puzzleCopy[y][x-1] = puzzleCopy[y][x];
-    puzzleCopy[y][x] = temp;
+    int temp = puzzleCopy[row][col-1];
+    puzzleCopy[row][col-1] = puzzleCopy[row][col];
+    puzzleCopy[row][col] = temp;
 
     System.out.println("Moving left:\n"+"|"+puzzleCopy[0][0]+" "+puzzleCopy[0][1]+" "+puzzleCopy[0][2]+"|\n|"+puzzleCopy[1][0]+" "+puzzleCopy[1][1]+" "+puzzleCopy[1][2]+"|\n|"+puzzleCopy[2][0]+" "+puzzleCopy[2][1]+" "+puzzleCopy[2][2]+"|\n");    
     return new EpuzzleState(puzzleCopy);
   }
 
-  private EpuzzleState movePieceRight(int[][] puzzle, int x, int y){
+  private EpuzzleState movePieceRight(int[][] puzzle, int col, int row){
     int[][] puzzleCopy = copyPuzzle(puzzle);
 
-    //x and y are the co-ordinates for the blank space.
+    //col and row are the co-ordinates for the blank space.
   
-    int temp = puzzleCopy[y][x+1];
-    puzzleCopy[y][x+1] = puzzleCopy[y][x];
-    puzzleCopy[y][x] = temp;
+    int temp = puzzleCopy[row][col+1];
+    puzzleCopy[row][col+1] = puzzleCopy[row][col];
+    puzzleCopy[row][col] = temp;
 
     System.out.println("Moving right:\n"+"|"+puzzleCopy[0][0]+" "+puzzleCopy[0][1]+" "+puzzleCopy[0][2]+"|\n|"+puzzleCopy[1][0]+" "+puzzleCopy[1][1]+" "+puzzleCopy[1][2]+"|\n|"+puzzleCopy[2][0]+" "+puzzleCopy[2][1]+" "+puzzleCopy[2][2]+"|\n");
     return new EpuzzleState(puzzleCopy);
