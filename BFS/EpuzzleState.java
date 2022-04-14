@@ -205,5 +205,19 @@ private int[][] puzzle;
   }
 
 
+  public int hamming(Search searcher, int[][] puzzle_){
+    int count = 0;
+    EpuzzleSearch eSearcher = (EpuzzleSearch) searcher;
+    int[][] target = eSearcher.getTarget();
+    for(int i = 0; i<puzzle_.length; i++){
+      for (int j = 0; j<puzzle_[i].length; j++){
+        if ((puzzle_[i][j] != target[i][j]) && (puzzle_[i][j] != 0)){
+          count+=1;
+        }
+      }
+    }
+    return count;
+  }
+
 }
 
