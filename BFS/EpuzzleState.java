@@ -67,11 +67,6 @@ private int[][] puzzle;
 
     int col = 0;//col and row coordinates for the blank space in the puzzle.
     int row = 0;
-    boolean canMoveLeft = true;
-    boolean canMoveRight = true;
-    boolean canMoveUp = true;
-    boolean canMoveDown = true;
-    int[][] newState;
 
     ArrayList<EpuzzleState> eslis = new ArrayList<EpuzzleState>(); // the list of puzzle states
     ArrayList<SearchState> slis = new ArrayList<SearchState>();
@@ -103,7 +98,7 @@ private int[][] puzzle;
       eslis.add(movePieceRight(puzzle, col, row));
 
 
-    // cast the jugs states as search states in slis
+    // cast the puzzles states to SearchState
 
     for (EpuzzleState es : eslis)
       slis.add((SearchState) es);
@@ -156,9 +151,8 @@ private int[][] puzzle;
   }
 
 
-
-  private EpuzzleState movePieceDown(int[][] puzzle, int col, int row){
-    int[][] puzzleCopy = copyPuzzle(puzzle);
+  private EpuzzleState movePieceDown(int[][] puzzle_, int col, int row){
+    int[][] puzzleCopy = copyPuzzle(puzzle_);
 
     //col and row are the co-ordinates for the blank space.
   
@@ -172,8 +166,8 @@ private int[][] puzzle;
   }
 
 
-  private EpuzzleState movePieceLeft(int[][] puzzle, int col, int row){
-    int[][] puzzleCopy = copyPuzzle(puzzle);
+  private EpuzzleState movePieceLeft(int[][] puzzle_, int col, int row){
+    int[][] puzzleCopy = copyPuzzle(puzzle_);
 
     //col and row are the co-ordinates for the blank space.
   
@@ -185,8 +179,8 @@ private int[][] puzzle;
     return new EpuzzleState(puzzleCopy);
   }
 
-  private EpuzzleState movePieceRight(int[][] puzzle, int col, int row){
-    int[][] puzzleCopy = copyPuzzle(puzzle);
+  private EpuzzleState movePieceRight(int[][] puzzle_, int col, int row){
+    int[][] puzzleCopy = copyPuzzle(puzzle_);
 
     //col and row are the co-ordinates for the blank space.
   
@@ -200,14 +194,14 @@ private int[][] puzzle;
 
 
   public int[][] copyPuzzle(int[][] puzzle_){
-    int[][] puzzle = new int[3][3];
+    int[][] puzzlecopy = new int[3][3];
     for(int i=0; i<puzzle_.length; i++){
       for(int j=0; j<puzzle_[i].length; j++){
-        puzzle[i][j] = puzzle_[i][j];
+        puzzlecopy[i][j] = puzzle_[i][j];
       }
     }
 
-    return puzzle;
+    return puzzlecopy;
   }
 
 
