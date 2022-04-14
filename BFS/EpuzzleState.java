@@ -93,46 +93,14 @@ private int[][] puzzle;
 
     //If statements:
 
-    if (row == 0){
-      canMoveUp = false;
-    }
-    else if (row == 2){
-      canMoveDown = false;
-    }
-
-    if (col == 0){
-      canMoveLeft = false;
-    }
-    else if (col == 2){
-      canMoveRight = false;
-    }
-
-    System.out.println("Can move up: "+canMoveUp);
-    System.out.println("Can move down: "+canMoveDown);
-    System.out.println("Can move left: "+canMoveLeft);
-    System.out.println("Can move right: "+canMoveRight);
-
-    if (canMoveUp){
-      //newState = movePieceUp(puzzleCopy, col, row);
-      //eslis.add(new EpuzzleState(newState));
-      eslis.add(movePieceUp(puzzle,col,row));
-    }
-
-    if (canMoveDown){
-      //newState = movePieceDown(puzzleCopy, col, row);
-      eslis.add(movePieceDown(puzzle,col,row));
-    }
-
-    if (canMoveLeft){
-      //newState = movePieceLeft(puzzleCopy, col, row);
-      eslis.add(movePieceLeft(puzzle,col,row));
-    }
-
-    if (canMoveRight){
-      //newState = movePieceRight(puzzleCopy, col, row);
-      eslis.add(movePieceRight(puzzle,col,row));
-    }
-
+    if (row != 0)
+      eslis.add(movePieceUp(puzzle, col, row));
+    if (row != 2)
+      eslis.add(movePieceDown(puzzle, col, row));
+    if (col != 0)
+      eslis.add(movePieceLeft(puzzle, col, row));
+    if (col != 2)
+      eslis.add(movePieceRight(puzzle, col, row));
 
 
     // cast the jugs states as search states in slis
@@ -183,7 +151,7 @@ private int[][] puzzle;
     puzzleCopy[row-1][col] = puzzleCopy[row][col];
     puzzleCopy[row][col] = temp;
 
-    System.out.println("Moving up:\n"+"|"+puzzleCopy[0][0]+" "+puzzleCopy[0][1]+" "+puzzleCopy[0][2]+"|\n|"+puzzleCopy[1][0]+" "+puzzleCopy[1][1]+" "+puzzleCopy[1][2]+"|\n|"+puzzleCopy[2][0]+" "+puzzleCopy[2][1]+" "+puzzleCopy[2][2]+"|\n");    
+    //System.out.println("Moving up:\n"+"|"+puzzleCopy[0][0]+" "+puzzleCopy[0][1]+" "+puzzleCopy[0][2]+"|\n|"+puzzleCopy[1][0]+" "+puzzleCopy[1][1]+" "+puzzleCopy[1][2]+"|\n|"+puzzleCopy[2][0]+" "+puzzleCopy[2][1]+" "+puzzleCopy[2][2]+"|\n");    
     return new EpuzzleState(puzzleCopy);
   }
 
@@ -198,7 +166,7 @@ private int[][] puzzle;
     puzzleCopy[row+1][col] = puzzleCopy[row][col];
     puzzleCopy[row][col] = temp;
 
-    System.out.println("Moving down:\n"+"|"+puzzleCopy[0][0]+" "+puzzleCopy[0][1]+" "+puzzleCopy[0][2]+"|\n|"+puzzleCopy[1][0]+" "+puzzleCopy[1][1]+" "+puzzleCopy[1][2]+"|\n|"+puzzleCopy[2][0]+" "+puzzleCopy[2][1]+" "+puzzleCopy[2][2]+"|\n");
+    //System.out.println("Moving down:\n"+"|"+puzzleCopy[0][0]+" "+puzzleCopy[0][1]+" "+puzzleCopy[0][2]+"|\n|"+puzzleCopy[1][0]+" "+puzzleCopy[1][1]+" "+puzzleCopy[1][2]+"|\n|"+puzzleCopy[2][0]+" "+puzzleCopy[2][1]+" "+puzzleCopy[2][2]+"|\n");
 
     return new EpuzzleState(puzzleCopy);
   }
@@ -213,7 +181,7 @@ private int[][] puzzle;
     puzzleCopy[row][col-1] = puzzleCopy[row][col];
     puzzleCopy[row][col] = temp;
 
-    System.out.println("Moving left:\n"+"|"+puzzleCopy[0][0]+" "+puzzleCopy[0][1]+" "+puzzleCopy[0][2]+"|\n|"+puzzleCopy[1][0]+" "+puzzleCopy[1][1]+" "+puzzleCopy[1][2]+"|\n|"+puzzleCopy[2][0]+" "+puzzleCopy[2][1]+" "+puzzleCopy[2][2]+"|\n");    
+    //System.out.println("Moving left:\n"+"|"+puzzleCopy[0][0]+" "+puzzleCopy[0][1]+" "+puzzleCopy[0][2]+"|\n|"+puzzleCopy[1][0]+" "+puzzleCopy[1][1]+" "+puzzleCopy[1][2]+"|\n|"+puzzleCopy[2][0]+" "+puzzleCopy[2][1]+" "+puzzleCopy[2][2]+"|\n");    
     return new EpuzzleState(puzzleCopy);
   }
 
@@ -226,7 +194,7 @@ private int[][] puzzle;
     puzzleCopy[row][col+1] = puzzleCopy[row][col];
     puzzleCopy[row][col] = temp;
 
-    System.out.println("Moving right:\n"+"|"+puzzleCopy[0][0]+" "+puzzleCopy[0][1]+" "+puzzleCopy[0][2]+"|\n|"+puzzleCopy[1][0]+" "+puzzleCopy[1][1]+" "+puzzleCopy[1][2]+"|\n|"+puzzleCopy[2][0]+" "+puzzleCopy[2][1]+" "+puzzleCopy[2][2]+"|\n");
+    //System.out.println("Moving right:\n"+"|"+puzzleCopy[0][0]+" "+puzzleCopy[0][1]+" "+puzzleCopy[0][2]+"|\n|"+puzzleCopy[1][0]+" "+puzzleCopy[1][1]+" "+puzzleCopy[1][2]+"|\n|"+puzzleCopy[2][0]+" "+puzzleCopy[2][1]+" "+puzzleCopy[2][2]+"|\n");
     return new EpuzzleState(puzzleCopy);
   }
 
