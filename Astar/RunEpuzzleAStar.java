@@ -8,8 +8,14 @@ public class RunEpuzzleAStar {
         //int[][] start = {{4,1,3},{7,2,5},{0,8,6}};
     
         //p3
-        int[][] start = {{2,3,6},{1,5,8},{4,7,0}};
+        //int[][] start = {{2,3,6},{1,5,8},{4,7,0}};
     
+        // generator given seed
+        int seed = 23456;
+        EpuzzGen gen = new EpuzzGen(seed);
+        // generate puzzle providing difficulty
+        int d = 6;
+        int[][] start = gen.puzzGen(d);
     
         int[][] goal = {{1,2,3},{4,5,6},{7,8,0}};
     
