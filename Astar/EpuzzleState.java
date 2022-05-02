@@ -86,27 +86,27 @@ private int[][] puzzle;
       }
     }
 
-    System.out.println("0 is in position: "+col+","+row+"\n");
+    //System.out.println("0 is in position: "+col+","+row+"\n");
 
 
     //If statements:
 
     if (row != 0){
       newState = movePieceUp(puzzle, col, row);
-      eslis.add(new EpuzzleState(newState, getLocalCost(), hamming(searcher, newState)));
+      eslis.add(new EpuzzleState(newState, getLocalCost(), manhattan(searcher, newState)));
     }
       //return new EpuzzleState(puzzleCopy, lc, rc);
     if (row != 2){
       newState = movePieceDown(puzzle, col, row);
-      eslis.add(new EpuzzleState(newState, getLocalCost(), hamming(searcher, newState)));
+      eslis.add(new EpuzzleState(newState, getLocalCost(), manhattan(searcher, newState)));
     }
     if (col != 0){
       newState = movePieceLeft(puzzle, col, row);
-      eslis.add(new EpuzzleState(newState, getLocalCost(), hamming(searcher, newState)));
+      eslis.add(new EpuzzleState(newState, getLocalCost(), manhattan(searcher, newState)));
     }
     if (col != 2){
       newState = movePieceRight(puzzle, col, row);
-      eslis.add(new EpuzzleState(newState, getLocalCost(), hamming(searcher, newState)));
+      eslis.add(new EpuzzleState(newState, getLocalCost(), manhattan(searcher, newState)));
     }
 
 
@@ -230,6 +230,39 @@ private int[][] puzzle;
     }
     return count;
   }
+
+
+  private int manhattan(Search searcher, int[][] state) {
+    int d = 0;
+    int si = 0;
+    int sj = 0;
+    EpuzzleSearch eSearcher = (EpuzzleSearch) searcher;
+    int[][] target = eSearcher.getTarget();
+
+    for(int n = 0; n <= 8; ++n) {
+       int i;
+       int j;
+       for(i = 0; i <= 2; ++i) {
+          for(j = 0; j <= 2; ++j) {
+             if (state[i][j] == n) {
+                si = i;
+                sj = j;
+             }
+          }
+       }
+
+       for(i = 0; i <= 2; ++i) {
+          for(j = 0; j <= 2; ++j) {
+             if (target[i][j] == n) {
+                d = d + Math.abs(i - si) + Math.abs(j - sj);
+             }
+          }
+       }
+    }
+
+    return d;
+ }
+
 
 }
 

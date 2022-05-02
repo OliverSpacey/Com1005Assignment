@@ -40,21 +40,24 @@ public abstract class Search {
 	  while (!open.isEmpty()) {
 
 	    // print contents of open
-	    System.out.println("-------------------------");
-	    System.out.println("iteration no " + numIteration);
-	    System.out.println("open is");
+	    //System.out.println("-------------------------");
+	    //System.out.println("iteration no " + numIteration);
+	    //System.out.println("open is");
 	    for (SearchNode nn: open) {
 	      String nodestr = nn.toString();
-		    System.out.println(nodestr);
+		    //System.out.println(nodestr);
 	    }
 
       selectNode(strat); // change from search1 -selectNode selects next node given strategy,
       
       // makes it currentNode & removes it from open
-      System.out.println("Current node: "+currentNode.toString());
+      //System.out.println("Current node: "+currentNode.toString());
 
-      if (currentNode.goalPredicate(this)) return reportSuccess();  //success
+      if (currentNode.goalPredicate(this)) {
+        System.out.println("Completed in: "+numIteration+" iteration(s)");
+        return reportSuccess();  //success
       //change from search1 - call reportSuccess
+      }
 
       expand(); // go again
       closed.add(currentNode); // put current node on closed
