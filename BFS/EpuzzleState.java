@@ -3,10 +3,9 @@ import java.util.*;
 public class EpuzzleState extends SearchState{
     
 /**
-* JugsState.java
-* State in a jugs problem
-* Phil Green 2013 version
-* Heidi Christensen (heidi.christensen@sheffield.ac.uk) 2021 version
+* EpuzzleState.java
+* State in 8 piece puzzle problem
+* Oliver Spacey (ohmspacey1@sheffield.ac.uk) 2022 version
 */
 
 
@@ -24,7 +23,7 @@ private int[][] puzzle;
   }
 
   /**
-   * accessor for content of jug1
+   * accessor for current puzzle state
    */
 
   public int[][] get_puzzle() {
@@ -56,9 +55,10 @@ private int[][] puzzle;
   }
 
   /**
-   * getSuccessors
+   * getSuccessors - uses the current puzzle state to find all legal moves and add them to a list, which is returned.
    * 
    * @param searcher - the current search
+   * @return - returns list of possible states from the current position.
    */
 
   public ArrayList<SearchState> getSuccessors(Search searcher) {
@@ -86,7 +86,7 @@ private int[][] puzzle;
     System.out.println("0 is in position: "+col+","+row+"\n");
 
 
-    //If statements:
+    //If statements for adding states to the possible state list 'eslis':
 
     if (row != 0)
       eslis.add(movePieceUp(puzzle, col, row));
@@ -107,10 +107,11 @@ private int[][] puzzle;
 
   }
 
-  /**
-   * sameState - do 2 JugsSearchNodes have the same state?
+   /**
+   * sameState - compares two puzzle states and determines similarity - i.e. are they identical or not
    * 
-   * @param s2 second state
+   * @param s2 - The state of the puzzle provided which is required to verify whether it is identical to another puzzle.
+   * @return - A boolean depending on whether the puzzles are the same or not.
    */
 
   public boolean sameState(SearchState s2) {
@@ -135,7 +136,14 @@ private int[][] puzzle;
     return "\n|"+puzzle[0][0]+" "+puzzle[0][1]+" "+puzzle[0][2]+"|\n|"+puzzle[1][0]+" "+puzzle[1][1]+" "+puzzle[1][2]+"|\n|"+puzzle[2][0]+" "+puzzle[2][1]+" "+puzzle[2][2]+"|\n";
   }
 
-
+  /**
+   * movePieceUp, movePieceDown, movePieceLeft, movePieceRight - All methods work by manipulating the position of the blank space in the direction indicated by their name.
+   * 
+   * @param puzzle_ - the current puzzle state is provided so it can be copied and altered.
+   * @param col - The column in which the blank space is located.
+   * @param row - The row in which the blank space is located.
+   * @return - The puzzle with the blank space moved in the direction indicated by the method name (up, down, left, or right).
+   */
 
   private EpuzzleState movePieceUp(int[][] puzzle_, int col, int row){
     int[][] puzzleCopy = copyPuzzle(puzzle_);
@@ -146,7 +154,6 @@ private int[][] puzzle;
     puzzleCopy[row-1][col] = puzzleCopy[row][col];
     puzzleCopy[row][col] = temp;
 
-    //System.out.println("Moving up:\n"+"|"+puzzleCopy[0][0]+" "+puzzleCopy[0][1]+" "+puzzleCopy[0][2]+"|\n|"+puzzleCopy[1][0]+" "+puzzleCopy[1][1]+" "+puzzleCopy[1][2]+"|\n|"+puzzleCopy[2][0]+" "+puzzleCopy[2][1]+" "+puzzleCopy[2][2]+"|\n");    
     return new EpuzzleState(puzzleCopy);
   }
 
@@ -159,8 +166,6 @@ private int[][] puzzle;
     int temp = puzzleCopy[row+1][col];
     puzzleCopy[row+1][col] = puzzleCopy[row][col];
     puzzleCopy[row][col] = temp;
-
-    //System.out.println("Moving down:\n"+"|"+puzzleCopy[0][0]+" "+puzzleCopy[0][1]+" "+puzzleCopy[0][2]+"|\n|"+puzzleCopy[1][0]+" "+puzzleCopy[1][1]+" "+puzzleCopy[1][2]+"|\n|"+puzzleCopy[2][0]+" "+puzzleCopy[2][1]+" "+puzzleCopy[2][2]+"|\n");
 
     return new EpuzzleState(puzzleCopy);
   }
@@ -175,9 +180,9 @@ private int[][] puzzle;
     puzzleCopy[row][col-1] = puzzleCopy[row][col];
     puzzleCopy[row][col] = temp;
 
-    //System.out.println("Moving left:\n"+"|"+puzzleCopy[0][0]+" "+puzzleCopy[0][1]+" "+puzzleCopy[0][2]+"|\n|"+puzzleCopy[1][0]+" "+puzzleCopy[1][1]+" "+puzzleCopy[1][2]+"|\n|"+puzzleCopy[2][0]+" "+puzzleCopy[2][1]+" "+puzzleCopy[2][2]+"|\n");    
     return new EpuzzleState(puzzleCopy);
   }
+
 
   private EpuzzleState movePieceRight(int[][] puzzle_, int col, int row){
     int[][] puzzleCopy = copyPuzzle(puzzle_);
@@ -188,10 +193,17 @@ private int[][] puzzle;
     puzzleCopy[row][col+1] = puzzleCopy[row][col];
     puzzleCopy[row][col] = temp;
 
-    //System.out.println("Moving right:\n"+"|"+puzzleCopy[0][0]+" "+puzzleCopy[0][1]+" "+puzzleCopy[0][2]+"|\n|"+puzzleCopy[1][0]+" "+puzzleCopy[1][1]+" "+puzzleCopy[1][2]+"|\n|"+puzzleCopy[2][0]+" "+puzzleCopy[2][1]+" "+puzzleCopy[2][2]+"|\n");
     return new EpuzzleState(puzzleCopy);
   }
 
+
+
+   /**
+   * copyPuzzle - Creates an exact copy of the puzzle provided as a parameter.
+   * 
+   * @param puzzle_ - The current state of the puzzle.
+   * @return - An identical copy of the puzzle, which can be altered without affecting the original.
+   */
 
   public int[][] copyPuzzle(int[][] puzzle_){
     int[][] puzzlecopy = new int[3][3];
@@ -204,6 +216,13 @@ private int[][] puzzle;
     return puzzlecopy;
   }
 
+/**
+ * hamming - Utilises hamming to calculate an estimated distance until puzzle is solved.
+ * 
+ * @param searcher - Used to obtain the target state so that the number of out-of-place tiles can be summated.
+ * @param puzzle_ - The current state of the puzzle, which is also required to compare the number of out-of-place tiles.
+ * @return - The total number of tiles that are not in the current position is counted and returned.
+ */
 
   public int hamming(Search searcher, int[][] puzzle_){
     int count = 0;

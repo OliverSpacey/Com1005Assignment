@@ -7,7 +7,7 @@ public class EpuzzleSearch extends Search {
     private int[][] target; //target
     private int[][] current; //current
 
-    /** constructor  takes jug capacities and target
+    /** constructor takes current and target states.
     * @param cur current state of the puzzle
     * @param tar target state to be reached
     */
@@ -29,6 +29,9 @@ public class EpuzzleSearch extends Search {
 	return target;
     }
 
+    /**
+     * Accessor for current puzzle state
+     */
     public int[][] getCurrent(){
         return current;
     }

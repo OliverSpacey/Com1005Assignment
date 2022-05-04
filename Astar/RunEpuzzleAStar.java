@@ -1,4 +1,5 @@
 public class RunEpuzzleAStar {
+
     public static void main(String[] args) {
 
         //p1
@@ -9,14 +10,8 @@ public class RunEpuzzleAStar {
     
         //p3
         //int[][] start = {{2,3,6},{1,5,8},{4,7,0}};
-    
-        // generator given seed
-        //int seed = 4321;
-        
-        //int d = 6;
-        // generate puzzle providing difficulty
 
-
+        //Random puzzle generation using provided arguments.
         int d = Integer.parseInt(args[1]);
         int seed = Integer.parseInt(args[2]);
         EpuzzGen gen = new EpuzzGen(seed);
@@ -27,15 +22,10 @@ public class RunEpuzzleAStar {
 
         String engine = args[0];
     
-        //SearchState initState = (SearchState) new SearchState();
         EpuzzleSearch searcher = new EpuzzleSearch(start, goal);
         SearchState initState = (SearchState) new EpuzzleState(start, 1, 2);
     
-        // change from search1 - specify strategy
-        //String resb = searcher.runSearch(initState, "AStar");
-        //String resb = searcher.runSearch(initState, "breadthFirst");
-        // String resd = searcher.runSearch(initState, "depthFirst");
-        String resb = searcher.runSearch(initState, engine);
+        String resb = searcher.runSearch(initState, "AStar");
         System.out.println(resb);
     
       }

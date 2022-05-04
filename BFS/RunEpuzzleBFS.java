@@ -22,7 +22,6 @@ public class RunEpuzzleBFS {
 
     // change from search1 - specify strategy
     String resb = searcher.runSearch(initState, "breadthFirst");
-    // String resd = searcher.runSearch(initState, "depthFirst");
     System.out.println(resb);
 
   }
